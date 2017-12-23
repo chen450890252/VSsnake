@@ -29,7 +29,9 @@ void addHead()
 		break;
 	}
 	SetConsoleCursorPosition(handle, newHead->coord);
+	SetConsoleTextAttribute(handle, 10);
 	printf("¡ñ");
+	SetConsoleTextAttribute(handle, 7);
 	headPointer = newHead;
 }
 

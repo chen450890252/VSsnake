@@ -1,13 +1,16 @@
 #include "data.h"
+#include "snaevent.h"
 
 //初始化画蛇
-void drawSnake()
+void drawSnake(int x)
 {
 	snake *tempSnake = headPointer;
 	while (tempSnake->next != NULL)
 	{
 		SetConsoleCursorPosition(handle, tempSnake->coord);
+		SetConsoleTextAttribute(handle, x);
 		printf("●");
+		SetConsoleTextAttribute(handle, 7);
 		tempSnake = tempSnake->next;
 	}
 	SetConsoleCursorPosition(handle, tempSnake->coord);
@@ -122,12 +125,36 @@ int eatDrug()
 	
 }
 
-//执行判断吃到什么东西的函数，并将结果返回给main函数
-int eat()
+//执行判断吃到什么东西的函数，并进行打印处理
+void eat()
 {
 	if (eatFood())
-		return tFood;
+	{
+		addHead();
+	}
 	else if (eatDrug())
-		return tDrug;
-	else return tNull;
+	{
+		deleteTail();
+		deleteTail();
+		deleteTail();
+		Sleep(200);
+		drawSnake(13);
+		Sleep(200);
+		drawSnake(15);
+		Sleep(200);
+		drawSnake(13);
+		Sleep(200);
+		drawSnake(15);
+		Sleep(200);
+		drawSnake(13);
+		Sleep(200);
+		drawSnake(15);
+		Sleep(200);
+		drawSnake(10);
+	}
+	else 
+	{
+		addHead();
+		deleteTail();
+	}
 }

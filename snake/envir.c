@@ -25,6 +25,7 @@ void enterIntoGame()
 //画出初始化场景，包括地图、初始化蛇、毒草
 void initScene()
 {
+	SetConsoleTextAttribute(handle, 1);
 	for (int i = 0; i < 26; i++)
 	{
 		if (i == 0 || i == 25)
@@ -48,8 +49,9 @@ void initScene()
 		}
 		printf("\n");
 	}
+	SetConsoleTextAttribute(handle, 7);
 	printData();
-	drawSnake();
+	drawSnake(10);
 	createDrug();
 }
 
@@ -68,7 +70,10 @@ void createFood()
 		foodPos.Y = (rand() * 1998) % 24 + 2;
 		createNoEquCoordWithOther(&foodPos, tFood);
 		SetConsoleCursorPosition(handle, foodPos);
+		SetConsoleTextAttribute(handle, 12);
 		printf("★");
+		SetConsoleTextAttribute(handle, 7);
+		
 		hasFood = yes;
 	}
 }
@@ -93,8 +98,12 @@ void createDrug()
 	}
 	for (int i = 0; i < drugCount; i++)
 	{
+		createNoEquCoordWithOther(&drugPos[i], tDrug);
 		SetConsoleCursorPosition(handle, drugPos[i]);
+		SetConsoleTextAttribute(handle, 13);
 		printf("卍");
+		SetConsoleTextAttribute(handle, 7);
+		
 	}
 
 }
@@ -203,7 +212,9 @@ void createAmaGrass()
 		amaGrassPos.Y = (rand() * 1998) % 24 + 2;
 		createNoEquCoordWithOther(&amaGrassPos, tAmaGrass);
 		SetConsoleCursorPosition(handle, amaGrassPos);
+		SetConsoleTextAttribute(handle, 14);
 		printf("◆");
+		SetConsoleTextAttribute(handle, 7);
 		hasAmaGrass = yes;
 	}
 }
