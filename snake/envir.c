@@ -22,7 +22,7 @@ void enterIntoGame()
 	system("cls");
 }
 
-//画出初始化地图，以及
+//画出初始化场景，包括地图、初始化蛇、毒草
 void initScene()
 {
 	for (int i = 0; i < 26; i++)
@@ -120,6 +120,9 @@ void createNoEquCoordWithOther(COORD *coord, int type)
 			otherCoord[i].X = drugPos[i].X;
 			otherCoord[i].Y = drugPos[i].Y;
 		}
+		otherCoord[i].X = amaGrassPos.X;
+		otherCoord[i].Y = amaGrassPos.Y;
+		i++;
 		break;
 	case tDrug:
 		for (i = 0; i < drugCount - 1 && coord != &drugPos[i]; i++)
@@ -136,8 +139,19 @@ void createNoEquCoordWithOther(COORD *coord, int type)
 		otherCoord[i].X = foodPos.X;
 		otherCoord[i].Y = foodPos.Y;
 		i++;
+		otherCoord[i].X = amaGrassPos.X;
+		otherCoord[i].Y = amaGrassPos.Y;
+		i++;
 		break;
 	case tAmaGrass:
+		for (i = 0; i < drugCount; i++)
+		{
+			otherCoord[i].X = drugPos[i].X;
+			otherCoord[i].Y = drugPos[i].Y;
+		}
+		otherCoord[i].X = foodPos.X;
+		otherCoord[i].Y = foodPos.Y;
+		i++;
 		break;
 	default:
 		break;
@@ -175,5 +189,21 @@ void createNoEquCoordWithOther(COORD *coord, int type)
 		}
 		else
 			break;
+	}
+}
+
+void createAmaGrass()
+{
+	grassRule = score % 150;
+	srand(score);
+	if (grassRule >= 20 && hasAmaGrass == no)
+	{
+		grassRule = 0;
+		amaGrassPos.X = (rand() * 1998) % 48 + 2;
+		amaGrassPos.Y = (rand() * 1998) % 24 + 2;
+		createNoEquCoordWithOther(&amaGrassPos, tAmaGrass);
+		SetConsoleCursorPosition(handle, amaGrassPos);
+		printf("◆");
+		hasAmaGrass = yes;
 	}
 }

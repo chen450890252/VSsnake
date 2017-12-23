@@ -36,15 +36,16 @@ int currentDirection;
 //句柄，给光标函数使用的
 HANDLE handle;
 
-//用于判断有没有食物存在，如果没有，则生成另一个食物
-int hasFood;
+//用于判断有没有食物和智慧草存在，如果没有，则生成另一个食物或智慧草
+int hasFood, hasAmaGrass;
 
 //各类坐标，如食物，分数，排行榜
-COORD foodPos, scorePos, top;
+COORD foodPos, amaGrassPos, scorePos, top;
 COORD drugPos[50];
+
 
 //毒草的个数、蛇的节数
 int drugCount, snakeCount;
 
 //分数，以及控制分数加减的辅助数据
-int score, addRule, subRule;
+int score, addRule, subRule, grassRule;

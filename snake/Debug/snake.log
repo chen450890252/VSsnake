@@ -1,5 +1,6 @@
-﻿  snaevent.c
-e:\githublibrary\vssnake\vssnake\snake\snaevent.c(66): warning C4013: “isBlockSelf”未定义；假设外部返回 int
-e:\githublibrary\vssnake\vssnake\snake\snaevent.c(79): warning C4013: “coordEqu”未定义；假设外部返回 int
-e:\githublibrary\vssnake\vssnake\snake\snaevent.c(96): warning C4013: “printData”未定义；假设外部返回 int
+﻿  envir.c
+e:\githublibrary\vssnake\vssnake\snake\envir.c(66): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+e:\githublibrary\vssnake\vssnake\snake\envir.c(86): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+  data.c
+  正在生成代码...
   snake.vcxproj -> E:\githublibrary\VsSnake\VSsnake\Debug\snake.exe

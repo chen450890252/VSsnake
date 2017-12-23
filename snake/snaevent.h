@@ -7,5 +7,6 @@ void changeDirection();
 int isSnakeDie();
 int eatFood();
 int eatDrug();
+int eatAmaGrass();
 int eat();
 

@@ -4,6 +4,7 @@ void initData()
 {
 	currentDirection = up;
 	hasFood = no;
+	hasAmaGrass = no;
 	score = 0;
 	addRule = 1;
 	subRule = 10;
@@ -13,6 +14,9 @@ void initData()
 	top.Y = 2;
 	drugCount = 0;
 	snakeCount = 4;
+	grassRule = 0;
+	amaGrassPos.X = 0;
+	amaGrassPos.Y = 0;
 	snake *first = (snake*)malloc(sizeof(snake));
 	snake *second = (snake*)malloc(sizeof(snake));
 	snake *third = (snake*)malloc(sizeof(snake));
