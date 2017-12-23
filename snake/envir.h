@@ -1,6 +1,7 @@
 #pragma once
 #include "data.h"
 #include "snaevent.h"
+#include <time.h>
 void createFirstPage();
 void enterIntoGame();
 void initScene();

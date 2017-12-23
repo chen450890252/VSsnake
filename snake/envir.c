@@ -1,5 +1,5 @@
 #include "envir.h"
-#include <time.h>
+
 //³õÊ¼»¯Ê×Ò³
 void createFirstPage()
 {
