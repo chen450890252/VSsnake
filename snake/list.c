@@ -39,5 +39,6 @@ void deleteTail()
 	printf("  ");
 	snake *temp = tailPointer;
 	tailPointer = tailPointer->pre;
+	tailPointer->next = NULL;
 	free(temp);
 }

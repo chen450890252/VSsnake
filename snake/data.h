@@ -6,8 +6,9 @@
 
 void initHandle();
 void initData();
-enum {yes, no};
+enum {no, yes};
 enum {up, down, left, right};
+enum {tFood, tDrug, tAmaGrass};
 typedef struct s
 {
 	COORD coord;
@@ -19,4 +20,7 @@ snake *tailPointer;
 int currentDirection;
 HANDLE handle;
 int hasFood;
-COORD food;
+COORD foodPos, scorePos, top;
+COORD drugPos[50];
+int drugCount;
+int score, scoreRule;
