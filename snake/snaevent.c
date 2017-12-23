@@ -124,6 +124,28 @@ int eatDrug()
 	
 }
 
+//判断是否吃到智慧草，并进行自动寻路
+int eatAmaGrass()
+{
+	if (coordEqu(headPointer->coord, amaGrassPos))
+	{
+		
+	}
+}
+
+void searchPath()
+{
+	int path[100];
+	COORD nextCoord;
+	int i = 0;
+	if (!isBlock(up, &nextCoord, headPointer->coord))
+	{
+		path[i] = up;
+		i++;
+		if()
+	}
+		
+}
 //执行判断吃到什么东西的函数，并进行打印处理
 void eat()
 {
@@ -155,5 +177,51 @@ void eat()
 	{
 		addHead();
 		deleteTail();
+	}
+}
+
+//判断参数所指定的方向的下一个点上，有没有不能走的路
+
+//递归给出某个方向上要走多少步！！！！！！！！
+int isBlock(int direction, COORD *nextCoord, COORD thisCoord)
+{
+	int stepCount;
+	int x = 0;
+	int y = 0;
+	switch (direction)
+	{
+	case up:
+		y = -1;
+		break;
+	case down:
+		y = 1;
+		break;
+	case left:
+		x = -2;
+		break;
+	case right:
+		x = 2;
+		break;
+	default:
+		break;
+	}
+	(*nextCoord).X = thisCoord.X + x;
+	(*nextCoord).Y = thisCoord.Y + y;
+	for (int i = 0; i < drugCount; i++)
+	{
+		if (coordEqu((*nextCoord), drugPos[i]))
+		{
+			stepCount++;
+			return stepCount;
+		}
+	}
+	if ((*nextCoord).X == 0 || (*nextCoord).X == 54 || (*nextCoord).Y == 0 || (*nextCoord).Y == 26)
+	{
+		stepCount++;
+		return stepCount;
+	}
+	else
+	{
+		isBlock()
 	}
 }
