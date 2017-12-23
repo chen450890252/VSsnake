@@ -49,3 +49,10 @@ int drugCount, snakeCount;
 
 //分数，以及控制分数加减的辅助数据
 int score, addRule, subRule, grassRule;
+
+//用于自动寻路算法递归统计步数
+int stepCount;
+//用于记录自动寻路的结果
+int path[500];
+//
+int haveFound;

@@ -127,24 +127,75 @@ int eatDrug()
 //判断是否吃到智慧草，并进行自动寻路
 int eatAmaGrass()
 {
-	if (coordEqu(headPointer->coord, amaGrassPos))
+	if (searchPath(headPointer->coord))
 	{
-		
+		return yes;
+	}
+	else
+	{
+		return no;
 	}
 }
 
-void searchPath()
+int searchPath(COORD coord)
 {
-	int path[100];
-	COORD nextCoord;
-	int i = 0;
-	if (!isBlock(up, &nextCoord, headPointer->coord))
+	if (!haveFound && coordEqu(coord, foodPos))
 	{
-		path[i] = up;
-		i++;
-		if()
+		haveFound = yes;
+		return yes;
 	}
-		
+	else if (currentDirection != down && !haveFound && !compareWithOba(coord, 'y', -1))
+	{
+		currentDirection = up;
+		path[stepCount] = up;
+		stepCount++;
+		coord.Y--;
+		if (!searchPath(coord))
+		{
+			stepCount--;
+		}
+	}
+	else if(currentDirection != left && !haveFound && !compareWithOba(coord, 'x', 2))
+	{
+		currentDirection = right;
+		path[stepCount] = right;
+		stepCount++;
+		coord.X += 2;
+		if (!searchPath(coord))
+		{
+			stepCount--;
+		}
+	}
+	else if(currentDirection != up && !haveFound && !compareWithOba(coord, 'y', 1))
+	{
+		currentDirection = down;
+		path[stepCount] = down;
+		stepCount++;
+		coord.Y++;
+		if (!searchPath(coord))
+		{
+			stepCount--;
+		}
+	}
+	else if (currentDirection != right && !haveFound && !compareWithOba(coord, 'x', -2))
+	{
+		currentDirection = left;
+		path[stepCount] = left;
+		stepCount++;
+		coord.X -= 2;
+		if (!searchPath(coord))
+		{
+			stepCount--;
+		}
+	}
+	else if(!haveFound)
+	{
+		return no;
+	}
+	else
+	{
+		return yes;
+	}
 }
 //执行判断吃到什么东西的函数，并进行打印处理
 void eat()
@@ -173,6 +224,16 @@ void eat()
 		Sleep(200);
 		drawSnake(10);
 	}
+	else if(eatAmaGrass())
+	{ 
+		for (int i = 0; i < stepCount; i++)
+		{
+			currentDirection = path[i];
+			addHead();
+			deleteTail();
+			Sleep(200);
+		}
+	}
 	else 
 	{
 		addHead();
@@ -180,48 +241,27 @@ void eat()
 	}
 }
 
-//判断参数所指定的方向的下一个点上，有没有不能走的路
-
-//递归给出某个方向上要走多少步！！！！！！！！
-int isBlock(int direction, COORD *nextCoord, COORD thisCoord)
+int compareWithOba(COORD coord, char type, int change)
 {
-	int stepCount;
-	int x = 0;
-	int y = 0;
-	switch (direction)
+	switch (type)
 	{
-	case up:
-		y = -1;
+	case 'x':
+		coord.X += change;
 		break;
-	case down:
-		y = 1;
-		break;
-	case left:
-		x = -2;
-		break;
-	case right:
-		x = 2;
+	case 'y':
+		coord.Y += change;
 		break;
 	default:
 		break;
 	}
-	(*nextCoord).X = thisCoord.X + x;
-	(*nextCoord).Y = thisCoord.Y + y;
 	for (int i = 0; i < drugCount; i++)
 	{
-		if (coordEqu((*nextCoord), drugPos[i]))
-		{
-			stepCount++;
-			return stepCount;
-		}
+		if (coordEqu(coord, drugPos[i]))
+			return yes;
 	}
-	if ((*nextCoord).X == 0 || (*nextCoord).X == 54 || (*nextCoord).Y == 0 || (*nextCoord).Y == 26)
-	{
-		stepCount++;
-		return stepCount;
-	}
-	else
-	{
-		isBlock()
-	}
+	if (coord.X == 2 || coord.X == 54 || coord.Y == 0 || coord.Y == 25)
+		return yes;
+	else	
+		return no;
 }
+
