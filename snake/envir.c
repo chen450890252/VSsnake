@@ -1,6 +1,6 @@
 #include "envir.h"
 #include <time.h>
-
+//初始化首页
 void createFirstPage()
 {
 	system("mode con cols=90 lines=30");
@@ -10,6 +10,7 @@ void createFirstPage()
 	enterIntoGame();
 }
 
+//按空格健进入游戏，清屏
 void enterIntoGame()
 {
 	char isEnter;
@@ -21,7 +22,8 @@ void enterIntoGame()
 	system("cls");
 }
 
-void createMap()
+//画出初始化地图，以及
+void initScene()
 {
 	for (int i = 0; i < 26; i++)
 	{
@@ -47,6 +49,8 @@ void createMap()
 		printf("\n");
 	}
 	printData();
+	drawSnake();
+	createDrug();
 }
 
 void gameOver()
@@ -79,6 +83,7 @@ void printData()
 
 void createDrug()
 {
+	srand(time(NULL));
 	for (int i = 0; i < 3; i++)
 	{
 		drugPos[i].X = (rand() * 1998) % 48 + 2;
@@ -112,17 +117,24 @@ void createNoEquCoordWithOther(COORD *coord, int type)
 	case tFood:
 		for (i = 0; i < drugCount; i++)
 		{
-			otherCoord[i] = drugPos[i];
+			otherCoord[i].X = drugPos[i].X;
+			otherCoord[i].Y = drugPos[i].Y;
 		}
 		break;
 	case tDrug:
-		for (i = 0; i < drugCount - 1, coord != &drugPos[i]; i++)
+		for (i = 0; i < drugCount - 1 && coord != &drugPos[i]; i++)
 		{
-			otherCoord[i] = drugPos[i];
+			otherCoord[i].X = drugPos[i].X;
+			otherCoord[i].Y = drugPos[i].Y;
 		}
-		if (drugCount = 1)
+		if (drugCount == 1)
+		{
+			otherCoord[i].X = drugPos[i].X;
+			otherCoord[i].Y = drugPos[i].Y;
 			break;
-		otherCoord[i] = foodPos;
+		}
+		otherCoord[i].X = foodPos.X;
+		otherCoord[i].Y = foodPos.Y;
 		i++;
 		break;
 	case tAmaGrass:
@@ -147,7 +159,7 @@ void createNoEquCoordWithOther(COORD *coord, int type)
 		{
 			equal = yes;
 		}
-		for (int j = 0; j < i, equal == no; j++)
+		for (int j = 0; j < i && equal == no; j++)
 		{
 			if (coordEqu(otherCoord[j], *coord))
 			{

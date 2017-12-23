@@ -5,12 +5,14 @@ void initData()
 	currentDirection = up;
 	hasFood = no;
 	score = 0;
-	scoreRule = 1;
+	addRule = 1;
+	subRule = 10;
 	scorePos.X = 68;
 	scorePos.Y = 20;
 	top.X = 69;
 	top.Y = 2;
 	drugCount = 0;
+	snakeCount = 4;
 	snake *first = (snake*)malloc(sizeof(snake));
 	snake *second = (snake*)malloc(sizeof(snake));
 	snake *third = (snake*)malloc(sizeof(snake));
