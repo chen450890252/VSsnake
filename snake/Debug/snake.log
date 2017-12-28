@@ -1,13 +1,11 @@
 ﻿  snake.c
   snaevent.c
-e:\githublibrary\vssnake\vssnake\snake\snaevent.c(68): warning C4013: “isBlockSelf”未定义；假设外部返回 int
-e:\githublibrary\vssnake\vssnake\snake\snaevent.c(130): warning C4013: “searchPath”未定义；假设外部返回 int
-e:\githublibrary\vssnake\vssnake\snake\snaevent.c(147): warning C4013: “compareWithOba”未定义；假设外部返回 int
-  list.c
+e:\githublibrary\vssnake\vssnake\snake\snaevent.c(60): warning C4013: “isBlockWall”未定义；假设外部返回 int
+e:\githublibrary\vssnake\vssnake\snake\snaevent.c(62): warning C4013: “isBlockSelf”未定义；假设外部返回 int
+e:\githublibrary\vssnake\vssnake\snake\snaevent.c(285): warning C4013: “isStepBlockWall”未定义；假设外部返回 int
+  queue.c
   envir.c
 e:\githublibrary\vssnake\vssnake\snake\envir.c(68): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
 e:\githublibrary\vssnake\vssnake\snake\envir.c(91): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-  data.c
   正在生成代码...
-e:\githublibrary\vssnake\vssnake\snake\snaevent.c(199): warning C4715: “searchPath”: 不是所有的控件路径都返回值
   snake.vcxproj -> E:\githublibrary\VsSnake\VSsnake\Debug\snake.exe

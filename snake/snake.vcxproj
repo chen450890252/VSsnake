@@ -98,6 +98,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <StackReserveSize>0x10000000</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -154,6 +155,7 @@
     <ClCompile Include="data.c" />
     <ClCompile Include="envir.c" />
     <ClCompile Include="list.c" />
+    <ClCompile Include="queue.c" />
     <ClCompile Include="snaevent.c" />
     <ClCompile Include="snake.c" />
   </ItemGroup>
@@ -161,6 +163,7 @@
     <ClInclude Include="data.h" />
     <ClInclude Include="envir.h" />
     <ClInclude Include="list.h" />
+    <ClInclude Include="queue.h" />
     <ClInclude Include="snaevent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

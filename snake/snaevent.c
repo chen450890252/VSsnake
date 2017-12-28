@@ -57,13 +57,7 @@ int isSnakeDie()
 		return yes;
 	else if (snakeCount <= 0)
 		return yes;
-	else if (currentDirection == up && headPointer->coord.Y == 0)
-		return yes;
-	else if (currentDirection == down && headPointer->coord.Y == 25)
-		return yes;
-	else if (currentDirection == left && headPointer->coord.X == 0)
-		return yes;
-	else if (currentDirection == right && headPointer->coord.X == 52)
+	else if (isBlockWall(headPointer->coord))
 		return yes;
 	else if (isBlockSelf(headPointer->coord))
 		return yes;
@@ -83,6 +77,32 @@ int isBlockSelf(COORD coord)
 		temp = temp->next;
 	} while (temp->next != NULL);
 	if (coordEqu(temp->coord, coord))
+		return yes;
+	else
+		return no;
+}
+
+int isEatDrug(COORD coord)
+{
+	for (int i = 0; i < drugCount; i++)
+	{
+		if (coordEqu(coord, drugPos[i]))
+		{
+			return yes;
+		}
+	}
+	return no;
+}
+
+int isBlockWall(COORD coord)
+{
+	if (currentDirection == up && coord.Y == 0)
+		return yes;
+	else if (currentDirection == down && coord.Y == 25)
+		return yes;
+	else if (currentDirection == left && coord.X == 0)
+		return yes;
+	else if (currentDirection == right && coord.X == 52)
 		return yes;
 	else
 		return no;
@@ -121,82 +141,9 @@ int eatDrug()
 		}
 	}
 	return no;
-	
+
 }
 
-//判断是否吃到智慧草，并进行自动寻路
-int eatAmaGrass()
-{
-	if (searchPath(headPointer->coord))
-	{
-		return yes;
-	}
-	else
-	{
-		return no;
-	}
-}
-
-int searchPath(COORD coord)
-{
-	if (!haveFound && coordEqu(coord, foodPos))
-	{
-		haveFound = yes;
-		return yes;
-	}
-	else if (currentDirection != down && !haveFound && !compareWithOba(coord, 'y', -1))
-	{
-		currentDirection = up;
-		path[stepCount] = up;
-		stepCount++;
-		coord.Y--;
-		if (!searchPath(coord))
-		{
-			stepCount--;
-		}
-	}
-	else if(currentDirection != left && !haveFound && !compareWithOba(coord, 'x', 2))
-	{
-		currentDirection = right;
-		path[stepCount] = right;
-		stepCount++;
-		coord.X += 2;
-		if (!searchPath(coord))
-		{
-			stepCount--;
-		}
-	}
-	else if(currentDirection != up && !haveFound && !compareWithOba(coord, 'y', 1))
-	{
-		currentDirection = down;
-		path[stepCount] = down;
-		stepCount++;
-		coord.Y++;
-		if (!searchPath(coord))
-		{
-			stepCount--;
-		}
-	}
-	else if (currentDirection != right && !haveFound && !compareWithOba(coord, 'x', -2))
-	{
-		currentDirection = left;
-		path[stepCount] = left;
-		stepCount++;
-		coord.X -= 2;
-		if (!searchPath(coord))
-		{
-			stepCount--;
-		}
-	}
-	else if(!haveFound)
-	{
-		return no;
-	}
-	else
-	{
-		return yes;
-	}
-}
 //执行判断吃到什么东西的函数，并进行打印处理
 void eat()
 {
@@ -206,9 +153,6 @@ void eat()
 	}
 	else if (eatDrug())
 	{
-		deleteTail();
-		deleteTail();
-		deleteTail();
 		Sleep(200);
 		drawSnake(13);
 		Sleep(200);
@@ -223,45 +167,147 @@ void eat()
 		drawSnake(15);
 		Sleep(200);
 		drawSnake(10);
+		deleteTail();
+		deleteTail();
+		deleteTail();
 	}
-	else if(eatAmaGrass())
-	{ 
-		for (int i = 0; i < stepCount; i++)
+	else if (eatAmaGrass())
+	{
+		for (int i = 0; i < count; i++)
 		{
 			currentDirection = path[i];
 			addHead();
 			deleteTail();
 			Sleep(200);
+			if (eatFood())
+			{
+				addHead();
+				deleteTail();
+				count = 0;
+				return;
+			}
+			else if (isSnakeDie())
+			{
+				gameOver();
+				return;
+			}
 		}
 	}
-	else 
+	else
 	{
 		addHead();
 		deleteTail();
 	}
 }
 
-int compareWithOba(COORD coord, char type, int change)
+//判断是否吃到智慧草，并进行自动寻路
+int eatAmaGrass()
 {
-	switch (type)
+	if (coordEqu(headPointer->coord, amaGrassPos))
 	{
-	case 'x':
-		coord.X += change;
-		break;
-	case 'y':
-		coord.Y += change;
-		break;
-	default:
-		break;
-	}
-	for (int i = 0; i < drugCount; i++)
-	{
-		if (coordEqu(coord, drugPos[i]))
+		hasAmaGrass = no;
+		node temp1 = (node)malloc(sizeof(struct _node));
+		node tempEnd = (node)malloc(sizeof(struct _node));
+		temp1->coord.X = headPointer->coord.X;
+		temp1->coord.Y = headPointer->coord.Y;
+		temp1->dir = currentDirection;
+		temp1->next = NULL;
+		temp1->pre = NULL;
+		tempEnd->coord.X = foodPos.X;
+		tempEnd->coord.Y = foodPos.Y;
+		if (searchLoad(temp1, tempEnd))
+		{
 			return yes;
+		}
+		else
+		{
+			return no;
+		}
 	}
-	if (coord.X == 2 || coord.X == 54 || coord.Y == 0 || coord.Y == 25)
-		return yes;
-	else	
-		return no;
+	return no;
 }
 
+int searchLoad(node start, node end)
+{
+	node headNode = (node)malloc(sizeof(struct _node));
+	headNode = start;
+	int nodeCount = 1;
+	node temp1, temp2;
+	temp1 = (node)malloc(sizeof(struct _node));
+	temp2 = (node)malloc(sizeof(struct _node));
+	int i;
+	int visit[60][30];
+
+	int dir[][2] = { { 0,1 },{ 2,0 },{ 0,-1 },{ -2,0 } };
+	
+	visit[start->coord.X][start->coord.Y] = yes;
+
+	while (nodeCount > 0)
+	{
+		temp1 = front(headNode);
+		nodeCount--;
+		for (i = 0; i < 4; i++)
+		{
+			temp2->coord.X = temp1->coord.X + dir[i][0];
+			temp2->coord.Y = temp1->coord.Y + dir[i][1];
+			switch (i)
+			{
+			case 0:
+				temp2->dir = down;
+				break;
+			case 1:
+				temp2->dir = right;
+				break;
+			case 2:
+				temp2->dir = up;
+				break;
+			case 3:
+				temp2->dir = left;
+				break;
+			}
+			temp2->pre = headNode;
+			if (coordEqu(temp2->coord, foodPos))
+			{
+				node temp = temp2;
+				while (temp->pre != NULL)
+				{
+					temp = temp->pre;
+					count++;
+				}
+				temp = temp2;
+				for (int j = count - 1; j >= 0 && temp != NULL; j--)
+				{
+					path[j] = temp->dir;
+					temp = temp->pre;
+				}
+				return yes;
+			}
+			if (!isEatDrug(temp2->coord) && !isStepBlockWall(temp2->coord) && visit[temp2->coord.X][temp2->coord.Y] != yes && !isBlockSelf(temp2->coord) && !coordEqu(temp2->coord, headPointer->coord))
+			{
+				node newNode = (node)malloc(sizeof(struct _node));
+				newNode->coord.X = temp2->coord.X;
+				newNode->coord.Y = temp2->coord.Y;
+				newNode->dir = temp2->dir;
+				push(headNode, newNode, temp1);
+				nodeCount++;
+				visit[temp2->coord.X][temp2->coord.Y] = yes;
+			}
+		}
+		pop(&headNode);
+	}
+	return no;
+}
+
+int isStepBlockWall(COORD coord)
+{
+	if (coord.Y == 0)
+		return yes;
+	else if (coord.Y == 25)
+		return yes;
+	else if (coord.X == 0)
+		return yes;
+	else if (coord.X == 52)
+		return yes;
+	else
+		return no;
+}

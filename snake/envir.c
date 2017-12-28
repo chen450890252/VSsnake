@@ -66,7 +66,7 @@ void createFood()
 	if (hasFood == no)
 	{
 		srand(time(NULL));
-		foodPos.X = (rand() * 1998) % 48 + 2;
+		foodPos.X = (rand() * 1998) % 24 * 2 + 2;
 		foodPos.Y = (rand() * 1998) % 24 + 2;
 		createNoEquCoordWithOther(&foodPos, tFood);
 		SetConsoleCursorPosition(handle, foodPos);
@@ -91,7 +91,7 @@ void createDrug()
 	srand(time(NULL));
 	for (int i = 0; i < 3; i++)
 	{
-		drugPos[i].X = (rand() * 1998) % 48 + 2;
+		drugPos[i].X = (rand() * 1998) % 24 * 2 + 2;
 		drugPos[i].Y = (rand() * 1998) % 24 + 2;
 		drugCount++;
 		createNoEquCoordWithOther(&drugPos[i], tDrug);
@@ -208,7 +208,7 @@ void createAmaGrass()
 	if (grassRule >= 20 && hasAmaGrass == no)
 	{
 		grassRule = 0;
-		amaGrassPos.X = (rand() * 1998) % 48 + 2;
+		amaGrassPos.X = (rand() * 1998) % 24 * 2 + 2;
 		amaGrassPos.Y = (rand() * 1998) % 24 + 2;
 		createNoEquCoordWithOther(&amaGrassPos, tAmaGrass);
 		SetConsoleCursorPosition(handle, amaGrassPos);

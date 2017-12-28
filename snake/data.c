@@ -17,8 +17,7 @@ void initData()
 	grassRule = 0;
 	amaGrassPos.X = 0;
 	amaGrassPos.Y = 0;
-	stepCount = 0;
-	haveFound = no;
+	count = 0;
 	snake *first = (snake*)malloc(sizeof(snake));
 	snake *second = (snake*)malloc(sizeof(snake));
 	snake *third = (snake*)malloc(sizeof(snake));
