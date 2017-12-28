@@ -1,11 +1,1 @@
-﻿  snake.c
-e:\githublibrary\vssnake\snake\snake\snake.c(33): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "stdafx.h"”?
-  snaevent.c
-e:\githublibrary\vssnake\snake\snake\snaevent.c(6): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "stdafx.h"”?
-  list.c
-e:\githublibrary\vssnake\snake\snake\list.c(44): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "stdafx.h"”?
-  envir.c
-e:\githublibrary\vssnake\snake\snake\envir.c(67): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "stdafx.h"”?
-  data.c
-e:\githublibrary\vssnake\snake\snake\data.c(34): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "stdafx.h"”?
-  正在生成代码...
+﻿  snake.vcxproj -> E:\githublibrary\VsSnake\VSsnake\x64\Debug\snake.exe
