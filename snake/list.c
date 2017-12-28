@@ -1,6 +1,6 @@
 #include "list.h"
 
-void addHead()
+void addHead(int color)
 {
 	snake *newHead = (snake*)malloc(sizeof(snake));
 	snake *lastHead = headPointer;
@@ -29,7 +29,7 @@ void addHead()
 		break;
 	}
 	SetConsoleCursorPosition(handle, newHead->coord);
-	SetConsoleTextAttribute(handle, 10);
+	SetConsoleTextAttribute(handle, color);
 	printf("¡ñ");
 	SetConsoleTextAttribute(handle, 7);
 	headPointer = newHead;

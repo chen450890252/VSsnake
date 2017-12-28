@@ -1,13 +1,13 @@
 #include "snaevent.h"
 
 //初始化画蛇
-void drawSnake(int x)
+void drawSnake(int color)
 {
 	snake *tempSnake = headPointer;
 	while (tempSnake->next != NULL)
 	{
 		SetConsoleCursorPosition(handle, tempSnake->coord);
-		SetConsoleTextAttribute(handle, x);
+		SetConsoleTextAttribute(handle, color);
 		printf("●");
 		SetConsoleTextAttribute(handle, 7);
 		tempSnake = tempSnake->next;
@@ -58,9 +58,15 @@ int isSnakeDie()
 	else if (snakeCount <= 0)
 		return yes;
 	else if (isBlockWall(headPointer->coord))
+	{
+		PlaySound(TEXT("blockWall.wav"), NULL, SND_FILENAME | SND_SYNC);
 		return yes;
+	}
 	else if (isBlockSelf(headPointer->coord))
+	{
+		PlaySound(TEXT("gg.wav"), NULL, SND_FILENAME | SND_SYNC);
 		return yes;
+	}
 	else
 		return no;
 }
@@ -113,6 +119,7 @@ int eatFood()
 {
 	if (coordEqu(headPointer->coord, foodPos))
 	{
+		PlaySound(TEXT("eatfood.wav"),NULL,SND_ASYNC|SND_FILENAME);
 		addRule++;
 		score += addRule;
 		printData();
@@ -130,6 +137,7 @@ int eatDrug()
 	{
 		if (coordEqu(headPointer->coord, drugPos[i]))
 		{
+			PlaySound(TEXT("drug.wav"), NULL, SND_FILENAME|SND_ASYNC);
 			addRule = 1;
 			score -= subRule;
 			subRule += 10;
@@ -141,7 +149,6 @@ int eatDrug()
 		}
 	}
 	return no;
-
 }
 
 //执行判断吃到什么东西的函数，并进行打印处理
@@ -149,7 +156,7 @@ void eat()
 {
 	if (eatFood())
 	{
-		addHead();
+		addHead(10);
 	}
 	else if (eatDrug())
 	{
@@ -176,12 +183,13 @@ void eat()
 		for (int i = 0; i < count; i++)
 		{
 			currentDirection = path[i];
-			addHead();
+			int color = i % 7 + 9;
+			addHead(color);
 			deleteTail();
 			Sleep(200);
 			if (eatFood())
 			{
-				addHead();
+				addHead(10);
 				deleteTail();
 				count = 0;
 				return;
@@ -195,7 +203,7 @@ void eat()
 	}
 	else
 	{
-		addHead();
+		addHead(10);
 		deleteTail();
 	}
 }
@@ -205,6 +213,7 @@ int eatAmaGrass()
 {
 	if (coordEqu(headPointer->coord, amaGrassPos))
 	{
+		PlaySound(TEXT("grass.wav"),NULL, SND_FILENAME|SND_ASYNC);
 		hasAmaGrass = no;
 		node temp1 = (node)malloc(sizeof(struct _node));
 		node tempEnd = (node)malloc(sizeof(struct _node));

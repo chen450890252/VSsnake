@@ -1,6 +1,6 @@
 #pragma once
 #include "data.h"
 
-void addHead();
+void addHead(int color);
 void deleteTail();
 

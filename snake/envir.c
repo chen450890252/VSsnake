@@ -4,7 +4,8 @@
 void createFirstPage()
 {
 	system("mode con cols=90 lines=30");
-	printf("\n\n\n\t\t\t欢迎进入贪吃蛇世界\n");
+	PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	printf("\n\n\n\n\n\t\t\t欢迎进入贪吃蛇世界\n");
 	printf("\t\t      按↑↓←→控制蛇的方向\n");
 	printf("\t\t\t 按空格键进入游戏\n\n\n");
 	enterIntoGame();
@@ -17,7 +18,11 @@ void enterIntoGame()
 	while (1)
 	{
 		isEnter = _getch();
-		if (isEnter == ' ')  break;
+		if (isEnter == ' ')
+		{
+			PlaySound(TEXT("entergame.wav"),NULL,SND_FILENAME|SND_ASYNC);
+			break;
+		}
 	}
 	system("cls");
 }
@@ -58,6 +63,7 @@ void initScene()
 void gameOver()
 {
 	system("cls");
+	PlaySound(TEXT("over.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	printf("\n\n\n\t\t\t\tGG\n\n\n\n\n\n\n");
 }
 

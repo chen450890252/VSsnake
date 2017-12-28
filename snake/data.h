@@ -48,6 +48,7 @@ COORD drugPos[50];
 int drugCount, snakeCount;
 
 //分数，以及控制分数加减的辅助数据
+
 int score, addRule, subRule, grassRule;
 
 typedef struct _node
@@ -59,6 +60,5 @@ typedef struct _node
 }*node;
 int path[100];
 int count;
-
 
 
