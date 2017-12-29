@@ -18,6 +18,11 @@ void initData()
 	amaGrassPos.X = 0;
 	amaGrassPos.Y = 0;
 	count = 0;
+	modeSelect = up;
+	new_game.X = 30;
+	new_game.Y = 10;
+	saved_mode.X = 30;
+	saved_mode.Y = 13;
 	snake *first = (snake*)malloc(sizeof(snake));
 	snake *second = (snake*)malloc(sizeof(snake));
 	snake *third = (snake*)malloc(sizeof(snake));

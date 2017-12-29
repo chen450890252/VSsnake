@@ -5,10 +5,10 @@
 void createFirstPage();
 void enterIntoGame();
 void initScene();
-void gameOver();
-
+int gameOver();
+void enterIntoFirstPage();
 void printData();
-
+void selectMode();
 void createFood();
 void createDrug();
 void createAmaGrass();

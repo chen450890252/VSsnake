@@ -1,1 +1,5 @@
-﻿  snake.vcxproj -> E:\githublibrary\VsSnake\VSsnake\x64\Debug\snake.exe
+﻿  snaevent.c
+e:\githublibrary\vssnake\vssnake\snake\snaevent.c(60): warning C4013: “isBlockWall”未定义；假设外部返回 int
+e:\githublibrary\vssnake\vssnake\snake\snaevent.c(65): warning C4013: “isBlockSelf”未定义；假设外部返回 int
+e:\githublibrary\vssnake\vssnake\snake\snaevent.c(294): warning C4013: “isStepBlockWall”未定义；假设外部返回 int
+  snake.vcxproj -> E:\githublibrary\VsSnake\VSsnake\x64\Debug\snake.exe

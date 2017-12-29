@@ -51,6 +51,9 @@ int drugCount, snakeCount;
 
 int score, addRule, subRule, grassRule;
 
+int modeSelect;
+COORD new_game, saved_mode;
+
 typedef struct _node
 {
 	COORD coord;

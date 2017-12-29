@@ -7,8 +7,69 @@ void createFirstPage()
 	PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	printf("\n\n\n\n\n\t\t\t欢迎进入贪吃蛇世界\n");
 	printf("\t\t      按↑↓←→控制蛇的方向\n");
-	printf("\t\t\t 按空格键进入游戏\n\n\n");
-	enterIntoGame();
+	printf("\t\t\t 按空格键进入首页\n\n\n");
+	enterIntoFirstPage();
+}
+
+void enterIntoFirstPage()
+{
+	char isEnter;
+	while (1)
+	{
+		isEnter = getchar();
+		if (isEnter == '\n')
+		{
+			break;
+		}
+	}
+	system("cls");
+	SetConsoleCursorPosition(handle, new_game);
+	SetConsoleTextAttribute(handle, 250);
+	printf("新 游 戏");
+	SetConsoleTextAttribute(handle, 10);
+	SetConsoleCursorPosition(handle, saved_mode);
+	printf("读 取 存 档");
+	selectMode();
+}
+
+void selectMode()
+{
+	while (1)
+	{
+		if (GetAsyncKeyState(' '))
+		{
+			break;
+		}
+		else if (GetAsyncKeyState(VK_UP))
+		{
+			modeSelect = up;
+			SetConsoleCursorPosition(handle, new_game);
+			SetConsoleTextAttribute(handle, 250);
+			printf("新 游 戏");
+			SetConsoleTextAttribute(handle, 10);
+			SetConsoleCursorPosition(handle, saved_mode);
+			printf("读 取 存 档");
+		}
+		else if (GetAsyncKeyState(VK_DOWN))
+		{
+			modeSelect = down;
+			SetConsoleTextAttribute(handle, 250);
+			SetConsoleCursorPosition(handle, saved_mode);
+			printf("读 取 存 档");
+			SetConsoleCursorPosition(handle, new_game);
+			SetConsoleTextAttribute(handle, 10);
+			printf("新 游 戏");
+
+		}
+	}
+	if (modeSelect == up)
+	{
+		PlaySound(TEXT("entergame.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		system("cls");
+		initScene();
+	}
+	else if (modeSelect == down)
+	{}
 }
 
 //按空格健进入游戏，清屏
@@ -24,7 +85,7 @@ void enterIntoGame()
 			break;
 		}
 	}
-	system("cls");
+
 }
 
 //画出初始化场景，包括地图、初始化蛇、毒草
@@ -60,11 +121,25 @@ void initScene()
 	createDrug();
 }
 
-void gameOver()
+int gameOver()
 {
 	system("cls");
 	PlaySound(TEXT("over.wav"), NULL, SND_FILENAME | SND_ASYNC);
-	printf("\n\n\n\t\t\t\tGG\n\n\n\n\n\n\n");
+	printf("\n\n\n\t\t\t\tGG\n\n");
+	printf("\t\t\t    按Q键重新开始游戏\n\t\t\t    按F键结束\n\n\n\n\n");
+	char isAgain;
+	while (1)
+	{
+		isAgain = _getch();
+		if (isAgain == 'F' || isAgain == 'f')
+		{
+			return no;
+		}
+		else if (isAgain == 'q' || isAgain == 'Q')
+		{
+			return yes;
+		}
+	}
 }
 
 void createFood()
