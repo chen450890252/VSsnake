@@ -1,27 +1,17 @@
 #include "envir.h"
 
+
 //初始化首页
 void createFirstPage()
 {
 	system("mode con cols=90 lines=30");
 	PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_ASYNC);
-	printf("\n\n\n\n\n\t\t\t欢迎进入贪吃蛇世界\n");
-	printf("\t\t      按↑↓←→控制蛇的方向\n");
-	printf("\t\t\t 按空格键进入首页\n\n\n");
-	enterIntoFirstPage();
+	printf("\n\n\n\n\n\n\n\n\t\t\t\t欢迎进入贪吃蛇世界\n");
+	Sleep(3000);
 }
 
 void enterIntoFirstPage()
 {
-	char isEnter;
-	while (1)
-	{
-		isEnter = getchar();
-		if (isEnter == '\n')
-		{
-			break;
-		}
-	}
 	system("cls");
 	SetConsoleCursorPosition(handle, new_game);
 	SetConsoleTextAttribute(handle, 250);
@@ -29,63 +19,187 @@ void enterIntoFirstPage()
 	SetConsoleTextAttribute(handle, 10);
 	SetConsoleCursorPosition(handle, saved_mode);
 	printf("读 取 存 档");
+	SetConsoleCursorPosition(handle, top);
+	printf("排 行 榜");
 	selectMode();
+}
+
+int scoreSort(FILE *file, char *filePath, int array[])
+{
+	int i = 0;
+	int max;
+	int count = 0;
+	fopen_s(&file, filePath, "r");
+	if (file != NULL)
+	{
+
+		int result;
+		do {
+			result = fscanf_s(file, "%d", &array[i]);
+			i++;
+			count++;
+		} while (result > 0);
+	}
+	fclose(file);
+	for (i = 0; i < count; i++)
+	{
+		max = array[i];
+		for (int j = i + 1; j < count; j++)
+		{
+			if (array[j] > max)
+			{
+				int temp = max;
+				max = array[j];
+				array[j] = temp;
+			}
+		}
+		array[i] = max;
+	}
+	return count;
 }
 
 void selectMode()
 {
+	int i = 0;
+	int isChange = 1;
+	int isbreak = 0;
+	COORD topTitle;
+	int score;
+	int count = 0;
 	while (1)
 	{
-		if (GetAsyncKeyState(' '))
-		{
+		if (isbreak)
 			break;
-		}
-		else if (GetAsyncKeyState(VK_UP))
+		if (_kbhit())
 		{
-			modeSelect = up;
-			SetConsoleCursorPosition(handle, new_game);
-			SetConsoleTextAttribute(handle, 250);
-			printf("新 游 戏");
-			SetConsoleTextAttribute(handle, 10);
-			SetConsoleCursorPosition(handle, saved_mode);
-			printf("读 取 存 档");
+			char hit = _getch();
+			switch (hit)
+			{
+			case ' ':
+				isbreak = 1;
+				break;
+			case 'w':case 'W':
+				if (modeSelect > 1)
+				{
+					modeSelect--;
+					isChange = 1;
+				}
+				break;
+			case 's':case 'S':
+				if (modeSelect < 3)
+				{
+					modeSelect++;
+					isChange = 1;
+				}
+				break;
+			default:
+				break;
+			}
 		}
-		else if (GetAsyncKeyState(VK_DOWN))
+		if (isChange == 1)
 		{
-			modeSelect = down;
-			SetConsoleTextAttribute(handle, 250);
-			SetConsoleCursorPosition(handle, saved_mode);
-			printf("读 取 存 档");
-			SetConsoleCursorPosition(handle, new_game);
-			SetConsoleTextAttribute(handle, 10);
-			printf("新 游 戏");
-
+			isChange = 0;
+			switch (modeSelect)
+			{
+			case 1:
+				SetConsoleCursorPosition(handle, new_game);
+				SetConsoleTextAttribute(handle, 250);
+				printf("新 游 戏");
+				SetConsoleTextAttribute(handle, 10);
+				SetConsoleCursorPosition(handle, saved_mode);
+				printf("读 取 存 档");
+				SetConsoleCursorPosition(handle, top);
+				printf("排 行 榜");
+				break;
+			case 2:
+				SetConsoleCursorPosition(handle, new_game);
+				SetConsoleTextAttribute(handle, 10);
+				printf("新 游 戏");
+				SetConsoleTextAttribute(handle, 10);
+				SetConsoleTextAttribute(handle, 250);
+				SetConsoleCursorPosition(handle, saved_mode);
+				printf("读 取 存 档");
+				SetConsoleTextAttribute(handle, 10);
+				SetConsoleCursorPosition(handle, top);
+				printf("排 行 榜");
+				break;
+			case 3:
+				SetConsoleCursorPosition(handle, new_game);
+				SetConsoleTextAttribute(handle, 10);
+				printf("新 游 戏");
+				SetConsoleTextAttribute(handle, 10);
+				SetConsoleCursorPosition(handle, saved_mode);
+				printf("读 取 存 档");
+				SetConsoleTextAttribute(handle, 250);
+				SetConsoleCursorPosition(handle, top);
+				printf("排 行 榜");
+				SetConsoleTextAttribute(handle, 10);
+				break;
+			default:
+				break;
+			}
 		}
 	}
-	if (modeSelect == up)
+	switch (modeSelect)
 	{
-		PlaySound(TEXT("entergame.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	case 1:
 		system("cls");
+		PlaySound(TEXT("entergame.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		initScene();
-	}
-	else if (modeSelect == down)
-	{}
-}
-
-//按空格健进入游戏，清屏
-void enterIntoGame()
-{
-	char isEnter;
-	while (1)
-	{
-		isEnter = _getch();
-		if (isEnter == ' ')
+		return;
+		break;
+	case 3:
+		topTitle.X = 30;
+		topTitle.Y = 5;
+		system("cls");
+		SetConsoleCursorPosition(handle, topTitle);
+		printf("排 行 榜\n");
+		count = scoreSort(file, filePath, topScore);
+		if (count > 10)
 		{
-			PlaySound(TEXT("entergame.wav"),NULL,SND_FILENAME|SND_ASYNC);
-			break;
+			for (i = 0; i < 10; i++)
+			{
+				topTitle.Y++;
+				SetConsoleCursorPosition(handle, topTitle);
+				printf("%d -> %d", i + 1, topScore[i]);
+			}
 		}
+		else
+		{
+			for (i = 0; i < count; i++)
+			{
+				topTitle.Y++;
+				SetConsoleCursorPosition(handle, topTitle);
+				printf("%d -> %d", i + 1, topScore[i]);
+			}
+			for (; i < 10; i++)
+			{
+				topTitle.Y++;
+				SetConsoleCursorPosition(handle, topTitle);
+				printf("%d -> 0", i + 1);
+			}
+		}
+		while (1)
+		{
+			if (_kbhit())
+			{
+				char hit = _getch();
+				switch (hit)
+				{
+				case ' ':
+					system("cls");
+					//递归完成返回
+					selectMode();
+					return;
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		break;
 	}
-
+	
 }
 
 //画出初始化场景，包括地图、初始化蛇、毒草
@@ -123,6 +237,14 @@ void initScene()
 
 int gameOver()
 {
+	char *filePath = "scores.txt";
+	FILE *file = NULL;
+	fopen_s(&file, filePath, "a+");
+	if (file != NULL && score > topScore[10])
+	{
+		fprintf(file, "%d\n", score);
+	}
+	fclose(file);
 	system("cls");
 	PlaySound(TEXT("over.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	printf("\n\n\n\t\t\t\tGG\n\n");
@@ -161,8 +283,6 @@ void createFood()
 
 void printData()
 {
-	SetConsoleCursorPosition(handle, top);
-	printf("排行版");
 	SetConsoleCursorPosition(handle, scorePos);
 	printf("分数: %d", score);
 }

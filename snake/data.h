@@ -40,7 +40,7 @@ HANDLE handle;
 int hasFood, hasAmaGrass;
 
 //各类坐标，如食物，分数，排行榜
-COORD foodPos, amaGrassPos, scorePos, top;
+COORD foodPos, amaGrassPos, scorePos;
 COORD drugPos[50];
 
 
@@ -50,9 +50,10 @@ int drugCount, snakeCount;
 //分数，以及控制分数加减的辅助数据
 
 int score, addRule, subRule, grassRule;
+int topScore[11];
 
 int modeSelect;
-COORD new_game, saved_mode;
+COORD new_game, saved_mode, top;
 
 typedef struct _node
 {
@@ -63,5 +64,8 @@ typedef struct _node
 }*node;
 int path[100];
 int count;
+
+char *filePath;
+FILE *file;
 
 

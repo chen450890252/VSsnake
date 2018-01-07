@@ -2,6 +2,8 @@
 
 void initData()
 {
+	filePath = "scores.txt";
+	file = NULL;
 	currentDirection = up;
 	hasFood = no;
 	hasAmaGrass = no;
@@ -10,19 +12,23 @@ void initData()
 	subRule = 10;
 	scorePos.X = 68;
 	scorePos.Y = 20;
-	top.X = 69;
-	top.Y = 2;
 	drugCount = 0;
 	snakeCount = 4;
 	grassRule = 0;
 	amaGrassPos.X = 0;
 	amaGrassPos.Y = 0;
 	count = 0;
-	modeSelect = up;
+	modeSelect = 1;
 	new_game.X = 30;
 	new_game.Y = 10;
 	saved_mode.X = 30;
 	saved_mode.Y = 13;
+	top.X = 30;
+	top.Y = 16;
+	for (int i = 0; i < 11; i++)
+	{
+		topScore[i] = 0;
+	}
 	snake *first = (snake*)malloc(sizeof(snake));
 	snake *second = (snake*)malloc(sizeof(snake));
 	snake *third = (snake*)malloc(sizeof(snake));

@@ -3,7 +3,6 @@
 #include "snaevent.h"
 #include <time.h>
 void createFirstPage();
-void enterIntoGame();
 void initScene();
 int gameOver();
 void enterIntoFirstPage();
@@ -12,6 +11,6 @@ void selectMode();
 void createFood();
 void createDrug();
 void createAmaGrass();
-
+int scoreSort(FILE *file, char *filePath, int array[]);
 int coordEqu(COORD coord1,COORD coord2);
 void createNoEquCoordWithOther(COORD *coord, int type);
