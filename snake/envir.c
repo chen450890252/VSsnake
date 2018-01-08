@@ -6,7 +6,34 @@ void createFirstPage()
 {
 	system("mode con cols=90 lines=30");
 	PlaySound(TEXT("start.wav"), NULL, SND_FILENAME | SND_ASYNC);
-	printf("\n\n\n\n\n\n\n\n\t\t\t\t欢迎进入贪吃蛇世界\n");
+	for (int i = 0; i < 26; i++)
+	{
+		if (i == 0 || i == 25)
+		{
+			for (int j = 0; j < 27; j++)
+			{
+				printf("■");
+			}
+		}
+		else
+		{
+			for (int j = 0; j < 27; j++)
+			{
+				if (j == 0 || j == 26)
+				{
+					printf("■");
+				}
+				else
+					printf("  ");
+			}
+		}
+		printf("\n");
+	}
+	COORD tempPos;
+	tempPos.X = 18;
+	tempPos.Y = 12;
+	SetConsoleCursorPosition(handle, tempPos);
+	printf("欢迎进入贪吃蛇世界\n");
 	Sleep(3000);
 }
 
@@ -79,6 +106,7 @@ void selectMode()
 				isbreak = 1;
 				break;
 			case 'w':case 'W':
+				PlaySound(TEXT("choice.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (modeSelect > 1)
 				{
 					modeSelect--;
@@ -86,6 +114,7 @@ void selectMode()
 				}
 				break;
 			case 's':case 'S':
+				PlaySound(TEXT("choice.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (modeSelect < 3)
 				{
 					modeSelect++;
@@ -202,17 +231,19 @@ void selectMode()
 	
 }
 
+
 //画出初始化场景，包括地图、初始化蛇、毒草
 void initScene()
 {
-	SetConsoleTextAttribute(handle, 1);
 	for (int i = 0; i < 26; i++)
 	{
 		if (i == 0 || i == 25)
 		{
 			for (int j = 0; j < 27; j++)
 			{
+				SetConsoleTextAttribute(handle, 17);
 				printf("■");
+				SetConsoleTextAttribute(handle, 7);
 			}
 		}
 		else
@@ -221,7 +252,9 @@ void initScene()
 			{
 				if (j == 0 || j == 26)
 				{
+					SetConsoleTextAttribute(handle, 17);
 					printf("■");
+					SetConsoleTextAttribute(handle, 7);
 				}
 				else
 					printf("  ");
@@ -232,6 +265,7 @@ void initScene()
 	SetConsoleTextAttribute(handle, 7);
 	printData();
 	drawSnake(10);
+	createObt();
 	createDrug();
 }
 
@@ -285,6 +319,37 @@ void printData()
 {
 	SetConsoleCursorPosition(handle, scorePos);
 	printf("分数: %d", score);
+	COORD rulePos;
+	rulePos.X = scorePos.X - 6;
+	rulePos.Y = scorePos.Y - 15;
+	SetConsoleCursorPosition(handle, rulePos);
+	printf("按↑↓←→控制蛇");
+	rulePos.Y++;
+	SetConsoleCursorPosition(handle, rulePos);
+	printf("按空格暂停游戏");
+	rulePos.Y+=2;
+	SetConsoleCursorPosition(handle, rulePos);
+	SetConsoleTextAttribute(handle, 12);
+	printf("★");
+	SetConsoleTextAttribute(handle, 15);
+	printf("  食物");
+	rulePos.Y+=2;
+	SetConsoleCursorPosition(handle, rulePos);
+	SetConsoleTextAttribute(handle, 13);
+	printf("●");
+	SetConsoleTextAttribute(handle, 15);
+	printf("  毒草");
+	rulePos.Y++;
+	SetConsoleCursorPosition(handle, rulePos);
+	if (level > 1)
+	{
+		SetConsoleTextAttribute(handle, 14);
+		printf("◆");
+		SetConsoleTextAttribute(handle, 15);
+		printf("  智慧草");
+	}
+	
+
 }
 
 void createDrug()
@@ -302,7 +367,7 @@ void createDrug()
 		createNoEquCoordWithOther(&drugPos[i], tDrug);
 		SetConsoleCursorPosition(handle, drugPos[i]);
 		SetConsoleTextAttribute(handle, 13);
-		printf("卍");
+		printf("●");
 		SetConsoleTextAttribute(handle, 7);
 		
 	}
@@ -330,6 +395,11 @@ void createNoEquCoordWithOther(COORD *coord, int type)
 			otherCoord[i].X = drugPos[i].X;
 			otherCoord[i].Y = drugPos[i].Y;
 		}
+		for (int j = 0; j < obtCount; j++, i++)
+		{
+			otherCoord[i].X = obtPos[j].X;
+			otherCoord[i].Y = obtPos[j].Y;
+		}
 		otherCoord[i].X = amaGrassPos.X;
 		otherCoord[i].Y = amaGrassPos.Y;
 		i++;
@@ -346,6 +416,11 @@ void createNoEquCoordWithOther(COORD *coord, int type)
 			otherCoord[i].Y = drugPos[i].Y;
 			break;
 		}
+		for (int j = 0; j < obtCount; j++, i++)
+		{
+			otherCoord[i].X = obtPos[j].X;
+			otherCoord[i].Y = obtPos[j].Y;
+		}
 		otherCoord[i].X = foodPos.X;
 		otherCoord[i].Y = foodPos.Y;
 		i++;
@@ -358,6 +433,11 @@ void createNoEquCoordWithOther(COORD *coord, int type)
 		{
 			otherCoord[i].X = drugPos[i].X;
 			otherCoord[i].Y = drugPos[i].Y;
+		}
+		for (int j = 0; j < obtCount; j++, i++)
+		{
+			otherCoord[i].X = obtPos[j].X;
+			otherCoord[i].Y = obtPos[j].Y;
 		}
 		otherCoord[i].X = foodPos.X;
 		otherCoord[i].Y = foodPos.Y;
@@ -405,8 +485,8 @@ void createNoEquCoordWithOther(COORD *coord, int type)
 void createAmaGrass()
 {
 	grassRule = score % 150;
-	srand(score);
-	if (grassRule >= 20 && hasAmaGrass == no)
+	srand(time(NULL) + score);
+	if (grassRule >= 100 && hasAmaGrass == no)
 	{
 		grassRule = 0;
 		amaGrassPos.X = (rand() * 1998) % 24 * 2 + 2;
@@ -417,5 +497,86 @@ void createAmaGrass()
 		printf("◆");
 		SetConsoleTextAttribute(handle, 7);
 		hasAmaGrass = yes;
+	}
+}
+
+void createObt()
+{
+	if (level == 2)
+	{
+		int i = 0;
+		for (; i < 8; i++)
+		{
+			obtPos[i].X = 8;
+			obtPos[i].Y = 10 + i;
+			SetConsoleCursorPosition(handle, obtPos[i]);
+			SetConsoleTextAttribute(handle, 119);
+			printf("■");
+			obtCount++;
+		}
+		for (; i < 16; i++)
+		{
+			obtPos[i].X = 42;
+			obtPos[i].Y = 2 + i;
+			SetConsoleCursorPosition(handle, obtPos[i]);
+			SetConsoleTextAttribute(handle, 119);
+			printf("■");
+			obtCount++;
+		}
+		for (; i < 24; i++)
+		{
+			obtPos[i].X = -14 + i * 2;
+			obtPos[i].Y = 5;
+			SetConsoleCursorPosition(handle, obtPos[i]);
+			SetConsoleTextAttribute(handle, 119);
+			printf("■");
+			obtCount++;
+		}
+		for (; i < 32; i++)
+		{
+			obtPos[i].X = -30 + i * 2;
+			obtPos[i].Y = 21;
+			SetConsoleCursorPosition(handle, obtPos[i]);
+			SetConsoleTextAttribute(handle, 119);
+			printf("■");
+			obtCount++;
+		}
+	}
+	else if (level == 3)
+	{
+		for (int i = 0; i < 30; i++)
+		{
+			int time = i;
+			srand(time += 1251345);
+			obtPos[i].X = (rand() * 1217) % 22 * 2 + 4;
+			obtPos[i].Y = (rand() * 1314) % 18 + 5;
+			snake *temp = headPointer;
+			int equal = 0;
+			while (temp->next != NULL)
+			{
+				if (coordEqu(temp->coord, obtPos[i]))
+				{
+					obtPos[i].X = (rand() * 1217) % 22 * 2 + 4;
+					obtPos[i].Y = (rand() * 1314) % 18 + 5;
+					equal = 1;
+					break;
+				}
+				temp = temp->next;
+			}
+			if (coordEqu(temp->coord, obtPos[i]))
+			{
+				obtPos[i].X = (rand() * 1217) % 22 * 2 + 4;
+				obtPos[i].Y = (rand() * 1314) % 18 + 5;
+				equal = 1;
+			}
+			if (equal == 1)
+			{
+				continue;
+			}
+			SetConsoleCursorPosition(handle, obtPos[i]);
+			SetConsoleTextAttribute(handle, 119);
+			printf("■");
+			obtCount++;
+		}
 	}
 }

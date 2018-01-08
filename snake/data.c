@@ -25,9 +25,16 @@ void initData()
 	saved_mode.Y = 13;
 	top.X = 30;
 	top.Y = 16;
+	level = 3;
+	obtCount = 0;
 	for (int i = 0; i < 11; i++)
 	{
 		topScore[i] = 0;
+	}
+	for (int i = 0; i < 50; i++)
+	{
+		obtPos[i].X = 100;
+		obtPos[i].Y = 100;
 	}
 	snake *first = (snake*)malloc(sizeof(snake));
 	snake *second = (snake*)malloc(sizeof(snake));

@@ -14,7 +14,7 @@ enum {no, yes};
 enum {up, down, left, right};
 
 //用于表示种类，比如吃到食物、毒草、没吃到东西
-enum {tFood, tDrug, tAmaGrass, tNull};
+enum {tFood, tDrug, tAmaGrass, tNull, tObt, tBomb};
 
 //蛇的结构体，包含一个坐标，以及两个指针，做双向链表
 typedef struct s
@@ -40,12 +40,12 @@ HANDLE handle;
 int hasFood, hasAmaGrass;
 
 //各类坐标，如食物，分数，排行榜
-COORD foodPos, amaGrassPos, scorePos;
-COORD drugPos[50];
+COORD foodPos, amaGrassPos, scorePos, obtPos[50], drugPos[50];
+
 
 
 //毒草的个数、蛇的节数
-int drugCount, snakeCount;
+int drugCount, snakeCount, obtCount;
 
 //分数，以及控制分数加减的辅助数据
 
@@ -67,5 +67,7 @@ int count;
 
 char *filePath;
 FILE *file;
+//关卡
+int level;
 
 

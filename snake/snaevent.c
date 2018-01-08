@@ -102,6 +102,13 @@ int isEatDrug(COORD coord)
 
 int isBlockWall(COORD coord)
 {
+	for (int i = 0; i < obtCount; i++)
+	{
+		if (coordEqu(coord, obtPos[i]))
+		{
+			return yes;
+		}
+	}
 	if (currentDirection == up && coord.Y == 0)
 		return yes;
 	else if (currentDirection == down && coord.Y == 25)

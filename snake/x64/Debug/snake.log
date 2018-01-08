@@ -1,7 +1,6 @@
-﻿  snake.c
-  envir.c
-e:\githublibrary\vssnake\vssnake\snake\envir.c(67): warning C4101: “score”: 未引用的局部变量
-e:\githublibrary\vssnake\vssnake\snake\envir.c(271): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-e:\githublibrary\vssnake\vssnake\snake\envir.c(292): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-  正在生成代码...
+﻿  envir.c
+e:\githublibrary\vssnake\vssnake\snake\envir.c(94): warning C4101: “score”: 未引用的局部变量
+e:\githublibrary\vssnake\vssnake\snake\envir.c(305): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+e:\githublibrary\vssnake\vssnake\snake\envir.c(357): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+e:\githublibrary\vssnake\vssnake\snake\envir.c(488): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
   snake.vcxproj -> E:\githublibrary\VsSnake\VSsnake\x64\Debug\snake.exe
