@@ -174,7 +174,8 @@ void selectMode()
 	case 1:
 		system("cls");
 		PlaySound(TEXT("entergame.wav"), NULL, SND_FILENAME | SND_ASYNC);
-		initScene();
+		selectLevel();
+		//initScene();
 		return;
 		break;
 	case 3:
@@ -310,7 +311,6 @@ void createFood()
 		SetConsoleTextAttribute(handle, 12);
 		printf("★");
 		SetConsoleTextAttribute(handle, 7);
-		
 		hasFood = yes;
 	}
 }
@@ -339,7 +339,7 @@ void printData()
 	printf("●");
 	SetConsoleTextAttribute(handle, 15);
 	printf("  毒草");
-	rulePos.Y++;
+	rulePos.Y+=2;
 	SetConsoleCursorPosition(handle, rulePos);
 	if (level > 1)
 	{
@@ -347,6 +347,12 @@ void printData()
 		printf("◆");
 		SetConsoleTextAttribute(handle, 15);
 		printf("  智慧草");
+		rulePos.Y += 2;
+		SetConsoleCursorPosition(handle, rulePos);
+		SetConsoleTextAttribute(handle, 119);
+		printf("■");
+		SetConsoleTextAttribute(handle, 15);
+		printf("  障碍");
 	}
 	
 
@@ -355,11 +361,22 @@ void printData()
 void createDrug()
 {
 	srand(time(NULL));
-	for (int i = 0; i < 3; i++)
+	switch (level)
+	{
+	case 1:
+		drugCount = 3;
+		break;
+	case 2:
+		drugCount = 5;
+		break;
+	case 3:
+		drugCount = 8;
+		break;
+	}
+	for (int i = 0; i < drugCount; i++)
 	{
 		drugPos[i].X = (rand() * 1998) % 24 * 2 + 2;
 		drugPos[i].Y = (rand() * 1998) % 24 + 2;
-		drugCount++;
 		createNoEquCoordWithOther(&drugPos[i], tDrug);
 	}
 	for (int i = 0; i < drugCount; i++)
@@ -369,7 +386,6 @@ void createDrug()
 		SetConsoleTextAttribute(handle, 13);
 		printf("●");
 		SetConsoleTextAttribute(handle, 7);
-		
 	}
 
 }
@@ -549,7 +565,7 @@ void createObt()
 			int time = i;
 			srand(time += 1251345);
 			obtPos[i].X = (rand() * 1217) % 22 * 2 + 4;
-			obtPos[i].Y = (rand() * 1314) % 18 + 5;
+			obtPos[i].Y = (rand() * 1314 + i * 253) % 18 + 5;
 			snake *temp = headPointer;
 			int equal = 0;
 			while (temp->next != NULL)
@@ -557,7 +573,7 @@ void createObt()
 				if (coordEqu(temp->coord, obtPos[i]))
 				{
 					obtPos[i].X = (rand() * 1217) % 22 * 2 + 4;
-					obtPos[i].Y = (rand() * 1314) % 18 + 5;
+					obtPos[i].Y = ((rand() * 1314) + i * 246) % 18 + 5;
 					equal = 1;
 					break;
 				}
@@ -566,7 +582,7 @@ void createObt()
 			if (coordEqu(temp->coord, obtPos[i]))
 			{
 				obtPos[i].X = (rand() * 1217) % 22 * 2 + 4;
-				obtPos[i].Y = (rand() * 1314) % 18 + 5;
+				obtPos[i].Y = ((rand() * 1314) + i * 246) % 18 + 5;
 				equal = 1;
 			}
 			if (equal == 1)
@@ -579,4 +595,99 @@ void createObt()
 			obtCount++;
 		}
 	}
+}
+
+void selectLevel()
+{
+	int isbreak = 0;
+	int isChange = 0;
+	SetConsoleCursorPosition(handle, new_game);
+	SetConsoleTextAttribute(handle, 250);
+	printf("第 一 关");
+	SetConsoleTextAttribute(handle, 10);
+	SetConsoleCursorPosition(handle, saved_mode);
+	printf("第 二 关");
+	SetConsoleCursorPosition(handle, top);
+	printf("第 三 关");
+	while (1)
+	{
+		if (isbreak)
+			break;
+		if (_kbhit())
+		{
+			char hit = _getch();
+			switch (hit)
+			{
+			case ' ':
+				if (isChange == 0)
+				{
+					level = 1;
+				}
+				isbreak = 1;
+				break;
+			case 'w':case 'W':
+				PlaySound(TEXT("choice.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				if (level > 1)
+				{
+					level--;
+					isChange = 1;
+				}
+				break;
+			case 's':case 'S':
+				PlaySound(TEXT("choice.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				if (level < 3)
+				{
+					level++;
+					isChange = 1;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		if (isChange == 1)
+		{
+			switch (level)
+			{
+			case 1:
+				SetConsoleCursorPosition(handle, new_game);
+				SetConsoleTextAttribute(handle, 250);
+				printf("第 一 关");
+				SetConsoleTextAttribute(handle, 10);
+				SetConsoleCursorPosition(handle, saved_mode);
+				printf("第 二 关");
+				SetConsoleCursorPosition(handle, top);
+				printf("第 三 关");
+				break;
+			case 2:
+				SetConsoleCursorPosition(handle, new_game);
+				SetConsoleTextAttribute(handle, 10);
+				printf("第 一 关");
+				SetConsoleTextAttribute(handle, 10);
+				SetConsoleTextAttribute(handle, 250);
+				SetConsoleCursorPosition(handle, saved_mode);
+				printf("第 二 关");
+				SetConsoleTextAttribute(handle, 10);
+				SetConsoleCursorPosition(handle, top);
+				printf("第 三 关");
+				break;
+			case 3:
+				SetConsoleCursorPosition(handle, new_game);
+				SetConsoleTextAttribute(handle, 10);
+				printf("第 一 关");
+				SetConsoleTextAttribute(handle, 10);
+				SetConsoleCursorPosition(handle, saved_mode);
+				printf("第 二 关");
+				SetConsoleTextAttribute(handle, 250);
+				SetConsoleCursorPosition(handle, top);
+				printf("第 三 关");
+				SetConsoleTextAttribute(handle, 10);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	system("cls");
+	initScene();
 }
