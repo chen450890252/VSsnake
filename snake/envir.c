@@ -39,6 +39,13 @@ void createFirstPage()
 
 void enterIntoFirstPage()
 {
+	COORD new_game, saved_mode, top;
+	new_game.X = 30;
+	new_game.Y = 10;
+	saved_mode.X = 30;
+	saved_mode.Y = 13;
+	top.X = 30;
+	top.Y = 16;
 	system("cls");
 	SetConsoleCursorPosition(handle, new_game);
 	SetConsoleTextAttribute(handle, 250);
@@ -87,6 +94,13 @@ int scoreSort(FILE *file, char *filePath, int array[])
 
 void selectMode()
 {
+	COORD new_game, saved_mode, top;
+	new_game.X = 30;
+	new_game.Y = 10;
+	saved_mode.X = 30;
+	saved_mode.Y = 13;
+	top.X = 30;
+	top.Y = 16;
 	int i = 0;
 	int isChange = 1;
 	int isbreak = 0;
@@ -272,8 +286,6 @@ void initScene()
 
 int gameOver()
 {
-	char *filePath = "scores.txt";
-	FILE *file = NULL;
 	fopen_s(&file, filePath, "a+");
 	if (file != NULL && score > topScore[10])
 	{
@@ -317,9 +329,12 @@ void createFood()
 
 void printData()
 {
+	COORD scorePos;
+	COORD rulePos;
+	scorePos.X = 68;
+	scorePos.Y = 20;
 	SetConsoleCursorPosition(handle, scorePos);
 	printf("分数: %d", score);
-	COORD rulePos;
 	rulePos.X = scorePos.X - 6;
 	rulePos.Y = scorePos.Y - 15;
 	SetConsoleCursorPosition(handle, rulePos);
@@ -599,15 +614,22 @@ void createObt()
 
 void selectLevel()
 {
+	COORD first, second, third;
+	first.X = 30;
+	first.Y = 10;
+	second.X = 30;
+	second.Y = 13;
+	third.X = 30;
+	third.Y = 16;
 	int isbreak = 0;
 	int isChange = 0;
-	SetConsoleCursorPosition(handle, new_game);
+	SetConsoleCursorPosition(handle, first);
 	SetConsoleTextAttribute(handle, 250);
 	printf("第 一 关");
 	SetConsoleTextAttribute(handle, 10);
-	SetConsoleCursorPosition(handle, saved_mode);
+	SetConsoleCursorPosition(handle, second);
 	printf("第 二 关");
-	SetConsoleCursorPosition(handle, top);
+	SetConsoleCursorPosition(handle, third);
 	printf("第 三 关");
 	while (1)
 	{
@@ -650,36 +672,36 @@ void selectLevel()
 			switch (level)
 			{
 			case 1:
-				SetConsoleCursorPosition(handle, new_game);
+				SetConsoleCursorPosition(handle, first);
 				SetConsoleTextAttribute(handle, 250);
 				printf("第 一 关");
 				SetConsoleTextAttribute(handle, 10);
-				SetConsoleCursorPosition(handle, saved_mode);
+				SetConsoleCursorPosition(handle, second);
 				printf("第 二 关");
-				SetConsoleCursorPosition(handle, top);
+				SetConsoleCursorPosition(handle, third);
 				printf("第 三 关");
 				break;
 			case 2:
-				SetConsoleCursorPosition(handle, new_game);
+				SetConsoleCursorPosition(handle, first);
 				SetConsoleTextAttribute(handle, 10);
 				printf("第 一 关");
 				SetConsoleTextAttribute(handle, 10);
 				SetConsoleTextAttribute(handle, 250);
-				SetConsoleCursorPosition(handle, saved_mode);
+				SetConsoleCursorPosition(handle, second);
 				printf("第 二 关");
 				SetConsoleTextAttribute(handle, 10);
-				SetConsoleCursorPosition(handle, top);
+				SetConsoleCursorPosition(handle, third);
 				printf("第 三 关");
 				break;
 			case 3:
-				SetConsoleCursorPosition(handle, new_game);
+				SetConsoleCursorPosition(handle, first);
 				SetConsoleTextAttribute(handle, 10);
 				printf("第 一 关");
 				SetConsoleTextAttribute(handle, 10);
-				SetConsoleCursorPosition(handle, saved_mode);
+				SetConsoleCursorPosition(handle, second);
 				printf("第 二 关");
 				SetConsoleTextAttribute(handle, 250);
-				SetConsoleCursorPosition(handle, top);
+				SetConsoleCursorPosition(handle, third);
 				printf("第 三 关");
 				SetConsoleTextAttribute(handle, 10);
 				break;
@@ -690,4 +712,39 @@ void selectLevel()
 	}
 	system("cls");
 	initScene();
+}
+
+void isWin()
+{
+	if (level == 1)
+	{
+		if (score >= 200)
+			return yes;
+	}
+	else if (level == 2)
+	{
+		if (score >= 200)
+		{
+			return yes;
+		}
+	}
+	else if (level == 3)
+	{
+		if(score >= 200)
+		{
+			return yes;
+		}
+	}
+}
+
+void faster()
+{
+	if (score >= 50)
+	{
+		speed = 150;
+	}
+	else if (score >= 100)
+	{
+		speed = 100;
+	}
 }

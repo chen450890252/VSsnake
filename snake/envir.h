@@ -16,3 +16,5 @@ int coordEqu(COORD coord1,COORD coord2);
 void createNoEquCoordWithOther(COORD *coord, int type);
 void selectLevel();
 void createObt();
+void isWin();
+void faster();

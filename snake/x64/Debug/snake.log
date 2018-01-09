@@ -1,6 +1,9 @@
 ﻿  envir.c
-e:\githublibrary\vssnake\vssnake\snake\envir.c(94): warning C4101: “score”: 未引用的局部变量
-e:\githublibrary\vssnake\vssnake\snake\envir.c(306): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-e:\githublibrary\vssnake\vssnake\snake\envir.c(363): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-e:\githublibrary\vssnake\vssnake\snake\envir.c(504): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+e:\githublibrary\vssnake\vssnake\snake\envir.c(108): warning C4101: “score”: 未引用的局部变量
+e:\githublibrary\vssnake\vssnake\snake\envir.c(318): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+e:\githublibrary\vssnake\vssnake\snake\envir.c(378): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+e:\githublibrary\vssnake\vssnake\snake\envir.c(519): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+e:\githublibrary\vssnake\vssnake\snake\envir.c(722): warning C4098: “isWin”:“void”函数返回值
+e:\githublibrary\vssnake\vssnake\snake\envir.c(728): warning C4098: “isWin”:“void”函数返回值
+e:\githublibrary\vssnake\vssnake\snake\envir.c(735): warning C4098: “isWin”:“void”函数返回值
   snake.vcxproj -> E:\githublibrary\VsSnake\VSsnake\x64\Debug\snake.exe

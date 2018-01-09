@@ -6,6 +6,7 @@
 
 void initHandle();
 void initData();
+void initCoord();
 
 //相当于一个bool类型
 enum {no, yes};
@@ -40,7 +41,8 @@ HANDLE handle;
 int hasFood, hasAmaGrass;
 
 //各类坐标，如食物，分数，排行榜
-COORD foodPos, amaGrassPos, scorePos, obtPos[50], drugPos[50];
+COORD foodPos, amaGrassPos;
+COORD obtPos[35], drugPos[10];
 
 
 
@@ -53,7 +55,7 @@ int score, addRule, subRule, grassRule;
 int topScore[11];
 
 int modeSelect;
-COORD new_game, saved_mode, top;
+
 
 typedef struct _node
 {
@@ -69,5 +71,7 @@ char *filePath;
 FILE *file;
 //关卡
 int level;
+
+int speed, speedControl;
 
 
