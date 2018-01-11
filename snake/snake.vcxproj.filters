@@ -18,16 +18,16 @@
     <ClInclude Include="data.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="envir.h">
+    <ClInclude Include="interface.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="list.h">
+    <ClInclude Include="snake.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="snaevent.h">
+    <ClInclude Include="ui.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="queue.h">
+    <ClInclude Include="tool.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,19 +35,19 @@
     <ClCompile Include="data.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="envir.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="list.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="snaevent.c">
+    <ClCompile Include="interface.c">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="snake.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="queue.c">
+    <ClCompile Include="main.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ui.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="tool.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,9 +1,10 @@
-﻿  envir.c
-e:\githublibrary\vssnake\vssnake\snake\envir.c(108): warning C4101: “score”: 未引用的局部变量
-e:\githublibrary\vssnake\vssnake\snake\envir.c(318): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-e:\githublibrary\vssnake\vssnake\snake\envir.c(378): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-e:\githublibrary\vssnake\vssnake\snake\envir.c(519): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-e:\githublibrary\vssnake\vssnake\snake\envir.c(722): warning C4098: “isWin”:“void”函数返回值
-e:\githublibrary\vssnake\vssnake\snake\envir.c(728): warning C4098: “isWin”:“void”函数返回值
-e:\githublibrary\vssnake\vssnake\snake\envir.c(735): warning C4098: “isWin”:“void”函数返回值
-  snake.vcxproj -> E:\githublibrary\VsSnake\VSsnake\x64\Debug\snake.exe
+﻿  ui.c
+c:\users\lenovo\desktop\snake\snake\snake\ui.c(99): warning C4013: “_kbhit”未定义；假设外部返回 int
+c:\users\lenovo\desktop\snake\snake\snake\ui.c(101): warning C4013: “_getch”未定义；假设外部返回 int
+c:\users\lenovo\desktop\snake\snake\snake\ui.c(469): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+c:\users\lenovo\desktop\snake\snake\snake\ui.c(483): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+c:\users\lenovo\desktop\snake\snake\snake\ui.c(512): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+c:\users\lenovo\desktop\snake\snake\snake\ui.c(245): warning C4715: “selectMode”: 不是所有的控件路径都返回值
+c:\users\lenovo\desktop\snake\snake\snake\ui.c(381): warning C4715: “selectLevels”: 不是所有的控件路径都返回值
+c:\users\lenovo\desktop\snake\snake\snake\ui.c(845): warning C4715: “isWin”: 不是所有的控件路径都返回值
+  snake.vcxproj -> C:\Users\lenovo\Desktop\snake\snake\x64\Debug\snake.exe
